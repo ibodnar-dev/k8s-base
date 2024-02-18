@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ps-app-deployment
+  namespace: ps
+  labels:
+    app: ps-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ps-app
+  template:
+    metadata:
+      name: ps-app
+      namespace: ps
+      labels:
+        app: ps-app
+    spec:
+      containers:
+        - name: ps-app
+          image: ib110/store-dev
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: registry-secret
